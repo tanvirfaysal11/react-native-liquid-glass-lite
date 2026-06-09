@@ -1,0 +1,66 @@
+{
+  "name": "@tanvir1133/react-native-liquid-glass-lite",
+  "version": "1.0.0",
+  "description": "A modern, high-performance blur library for React Native with support for BlurView, ProgressiveBlurView, LiquidGlassView, VibrancyView, and BlurSwitch.",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "source": "./src/index.tsx",
+  "files": [
+    "src",
+    "android",
+    "ios",
+    "lib",
+    "*.podspec",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "react-native",
+    "ios",
+    "android",
+    "blur",
+    "blurview",
+    "liquid-glass",
+    "vibrancy",
+    "progressive-blur",
+    "glass-effect",
+    "frosted-glass"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tanvirfaysal11/react-native-liquid-glass-lite"
+  },
+  "author": "Tanvir Faysal <t.faysal45@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tanvirfaysal11/react-native-liquid-glass-lite/issues"
+  },
+  "homepage": "https://github.com/tanvirfaysal11/react-native-liquid-glass-lite#readme",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.73.0",
+    "typescript": "^5.0.0"
+  },
+  "codegenConfig": {
+    "name": "ReactNativeBlurViewSpec",
+    "type": "all",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.tanvirfaysal.reactnativeblur"
+    },
+    "ios": {
+      "componentProvider": {
+        "ReactNativeBlurView": "ReactNativeBlurView",
+        "ReactNativeLiquidGlassView": "ReactNativeLiquidGlassView",
+        "ReactNativeProgressiveBlurView": "ReactNativeProgressiveBlurView",
+        "ReactNativeLiquidGlassContainer": "ReactNativeLiquidGlassContainer",
+        "ReactNativeVibrancyView": "ReactNativeVibrancyView"
+      }
+    }
+  }
+}
