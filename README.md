@@ -19,6 +19,8 @@ A modern React Native library providing **six specialized components** for advan
   </p>
 </div>
 
+> 🎉 **New in v1.1.0 — Web Support.** Every component now renders on **react-native-web** using CSS `backdrop-filter` — no platform branches, no extra setup. See [Web usage](#web-support).
+
 ---
 
 ## Requirements
@@ -364,6 +366,43 @@ function BlurSwitchExample() {
 ```
 
 > **Note:** On Android, only `trackColor.true` is used — QmBlurView auto-calculates on/off colors from the base color. `thumbColor` and `trackColor.false` are iOS-only.
+
+### Web Support
+
+The same components and props render on **react-native-web** via CSS `backdrop-filter`, which blurs whatever sits behind the view — exactly like native. No platform branching is required; Metro resolves the `.web` implementations automatically.
+
+```tsx
+import { View, Text } from 'react-native';
+import {
+  BlurView,
+  ProgressiveBlurView,
+} from '@tanvir1133/react-native-liquid-glass-lite';
+
+function WebExample() {
+  return (
+    <View style={{ flex: 1, position: 'relative' }}>
+      <BlurView
+        blurType="light"
+        blurAmount={30}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 120 }}
+      />
+
+      <ProgressiveBlurView
+        blurType="regular"
+        blurAmount={40}
+        direction="blurredTopClearBottom"
+        style={{ marginTop: 140, height: 200 }}
+      >
+        <Text style={{ color: '#fff', padding: 16 }}>
+          Progressive blur, rendered with CSS
+        </Text>
+      </ProgressiveBlurView>
+    </View>
+  );
+}
+```
+
+> **How it works:** `BlurView` uses a single `backdrop-filter: blur() saturate()` layer plus a blur-type tint. `ProgressiveBlurView` stacks several masked `backdrop-filter` layers to reproduce a true blur-radius ramp. Browsers without `backdrop-filter` support degrade gracefully to the tint alone.
 
 ---
 

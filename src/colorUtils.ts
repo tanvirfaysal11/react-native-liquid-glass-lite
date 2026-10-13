@@ -1,4 +1,4 @@
-// Fallback overlay colour helpers for the web glass fallback.
+// Fallback overlay colour helpers for the web gla
 import type { ColorValue } from 'react-native';
 
 /** Blur strength used for the non-iOS-26 glass fallback. */

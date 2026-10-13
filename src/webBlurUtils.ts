@@ -1,4 +1,4 @@
-// Web blur utilities (CSS backdrop-filter).
+// Web blur utilities (CSS backdrop-f
 import { useSyncExternalStore } from 'react';
 import type { ViewStyle } from 'react-native';
 import type { BlurType } from './ReactNativeBlurViewNativeComponent';
