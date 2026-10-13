@@ -2,6 +2,9 @@
 
 ## 1.1.0 (2026-10-13)
 
+### Web support
+- Every component now ships a `.web` implementation (CSS `backdrop-filter`) so `BlurView`, `ProgressiveBlurView`, `LiquidGlassView`, `VibrancyView`, `BlurSwitch`, and `LiquidGlassContainer` render on react-native-web with no extra setup. Progressive blur stacks masked backdrop-filter layers to reproduce a true blur-radius ramp; browsers without `backdrop-filter` degrade to the blur-type tint.
+
 ### iOS 27 / all-device compatibility
 - **ProgressiveBlurView**: The private `CAFilter` `variableBlur` reflection is now crash-safe. Each key (`inputRadius`, `inputMaskImage`, `inputNormalizeEdges`) is probed before it is set, so a private-API change on any iOS release degrades to a uniform blur instead of raising an Objective-C exception. No `patch-package` needed.
 - **Podspec**: Deployment target is clamped to iOS 13.0 (SwiftUI minimum) so the SwiftUI-backed views never resolve to an older, unsupported deployment target when the host app's `min_ios_version_supported` is lower.

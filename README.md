@@ -34,6 +34,8 @@ A modern React Native library providing **six specialized components** for advan
 > ⚠️ `LiquidGlassView` requires Xcode 26.0+ and iOS 26+ for full glass effects. The component automatically falls back to enhanced blur on older versions.
 >
 > ℹ️ **iOS 27**: Liquid Glass is the system default. `LiquidGlassView` / `LiquidGlassContainer` use the public `UIGlassEffect` API, and `BlurView` / `VibrancyView` keep working via `UIBlurEffect` (auto-adopted by the system). No patches or private-API setup required — the package runs on every iPhone out of the box.
+>
+> 🌐 **Web**: every component ships a `.web` implementation using CSS `backdrop-filter`. Metro picks them up automatically on `web`; browsers without `backdrop-filter` support degrade to the blur-type tint.
 
 ---
 
@@ -86,7 +88,8 @@ Auto-linking handles everything else on React Native 0.60+.
 
 - 🌊 **Liquid Glass Effects** — iOS 26+ UIGlassEffect API
 - 🎨 **Multiple Blur Types** — 21 blur styles including system materials
-- 📱 **Cross-Platform** — iOS and Android
+- 📱 **Cross-Platform** — iOS, Android, and web (CSS `backdrop-filter`)
+- 🌐 **Web Support** — the same components render on react-native-web with a CSS blur + tint approximation, no extra setup
 - ♿ **Accessibility** — automatic fallback for reduced transparency settings
 - 🔧 **Full TypeScript** — separate prop types for every component
 - 🚀 **New Architecture Ready** — built for Fabric / Turbo Modules
