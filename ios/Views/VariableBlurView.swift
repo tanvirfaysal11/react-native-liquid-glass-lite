@@ -5,6 +5,7 @@ import SwiftUI
 import UIKit
 import CoreImage.CIFilterBuiltins
 import QuartzCore
+import ObjectiveC.runtime
 
 public enum VariableBlurDirection: String {
   case blurredTopClearBottom
@@ -21,6 +22,32 @@ public enum VariableBlurDirection: String {
       self = .blurredTopClearBottom
     }
   }
+}
+
+/// Sets a value on a private Core Animation filter only when the key is
+/// actually KVC-compliant. The `variableBlur` filter is not public API, so its
+/// keys can change across iOS releases; a plain `setValue(_:forKey:)` would
+/// raise an Objective-C exception (crash) if a key disappears. Probing the
+/// ivar list first degrades to a uniform blur instead of crashing.
+@discardableResult
+private func setValueIfPresent(_ value: Any?, forKey key: String, on object: NSObject) -> Bool {
+  let candidates = [key, "_\(key)"]
+  var cls: AnyClass? = object_getClass(object)
+  while let current = cls {
+    var count: UInt32 = 0
+    if let ivars = class_copyIvarList(current, &count) {
+      defer { free(ivars) }
+      for i in 0..<Int(count) {
+        guard let name = ivar_getName(ivars[i]) else { continue }
+        if candidates.contains(String(cString: name)) {
+          object.setValue(value, forKey: key)
+          return true
+        }
+      }
+    }
+    cls = class_getSuperclass(current)
+  }
+  return false
 }
 
 open class VariableBlurView: UIVisualEffectView {
@@ -86,9 +113,14 @@ open class VariableBlurView: UIVisualEffectView {
       direction: direction
     )
 
-    variableBlur.setValue(maxBlurRadius, forKey: "inputRadius")
-    variableBlur.setValue(gradientImage, forKey: "inputMaskImage")
-    variableBlur.setValue(true, forKey: "inputNormalizeEdges")
+    guard
+      setValueIfPresent(maxBlurRadius, forKey: "inputRadius", on: variableBlur),
+      setValueIfPresent(gradientImage, forKey: "inputMaskImage", on: variableBlur),
+      setValueIfPresent(true, forKey: "inputNormalizeEdges", on: variableBlur)
+    else {
+      print("[VariableBlur] Error: variableBlur filter keys unavailable — falling back to uniform blur")
+      return
+    }
 
     let backdropLayer = subviews.first?.layer
     backdropLayer?.filters = [variableBlur]

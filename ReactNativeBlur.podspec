@@ -10,7 +10,9 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = { "Tanvir Faysal" => "t.faysal45@gmail.com" }
 
-  s.platforms    = { :ios => min_ios_version_supported }
+  # The SwiftUI-backed views require iOS 13+, so never resolve below that even
+  # when the host app's `min_ios_version_supported` is older.
+  s.platforms    = { :ios => [min_ios_version_supported.to_f, 13.0].max }
   s.source       = { :path => "." }
 
   s.source_files = "ios/**/*.{h,m,mm,cpp,swift}"
