@@ -1,10 +1,19 @@
 {
   "name": "@tanvir1133/react-native-liquid-glass-lite",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A modern, high-performance blur library for React Native with support for BlurView, ProgressiveBlurView, LiquidGlassView, VibrancyView, and BlurSwitch.",
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",
   "source": "./src/index.tsx",
+  "exports": {
+    ".": {
+      "types": "./src/index.tsx",
+      "react-native": "./src/index.tsx",
+      "browser": "./src/index.web.tsx",
+      "default": "./src/index.tsx"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "src",
     "android",

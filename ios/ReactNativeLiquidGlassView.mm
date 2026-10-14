@@ -20,7 +20,6 @@ using namespace facebook::react;
 
 @implementation ReactNativeLiquidGlassView {
   LiquidGlassContainerView *_liquidGlassView;
-  Props::Shared _props;
   LayoutMetrics _layoutMetrics;
 }
 
@@ -230,9 +229,6 @@ using namespace facebook::react;
       [ReactNativeLiquidGlassViewHelper updateLiquidGlassView:_liquidGlassView withReducedTransparencyFallbackColor:fallbackColor];
     }
   }
-
-  // Store the new props
-  _props = props;
 
   [super updateProps:props oldProps:oldProps];
 }

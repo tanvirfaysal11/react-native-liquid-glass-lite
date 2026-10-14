@@ -85,6 +85,17 @@ import UIKit
     ])
 
     self.hostingController = hosting
+    applyReducedTransparencyState()
+  }
+
+  private func applyReducedTransparencyState() {
+    if UIAccessibility.isReduceTransparencyEnabled {
+      hostingController?.view.isHidden = true
+      backgroundColor = reducedTransparencyFallbackColor
+    } else {
+      hostingController?.view.isHidden = false
+      backgroundColor = .clear
+    }
   }
 
   private func updateView() {
@@ -105,6 +116,8 @@ import UIKit
     } else {
         setupHostingController()
     }
+
+    applyReducedTransparencyState()
   }
 
   public override func didMoveToSuperview() {

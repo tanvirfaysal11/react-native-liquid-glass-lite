@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1 (2026-10-14)
+
+### Bug fixes
+- **Fabric crash on iOS**: Removed a shadowing `Props::Shared _props` ivar from all 5 Fabric view components (`ReactNativeBlurView`, `ReactNativeVibrancyView`, `ReactNativeLiquidGlassView`, `ReactNativeProgressiveBlurView`, `ReactNativeLiquidGlassContainer`). On React Native 0.87 the shadowing ivar left the superclass `_props` as the default `ViewProps`, tripping a native `NSAssert` in `RCTViewComponentView updateProps:oldProps:` on the first prop update. The views now use the inherited `_props`.
+- **Header imports**: Fixed `#import "RCTBridge.h"` → `#import <React/RCTBridge.h>` in `ReactNativeLiquidGlassViewManager.h` and `ReactNativeLiquidGlassContainerManager.h`.
+- **BlurView reduce-transparency fallback**: `reducedTransparencyFallbackColor` was accepted but never applied — the blur still rendered when the user had "Reduce Transparency" enabled. `AdvancedBlurView` now hides the blur and shows the fallback color, matching the behavior of `ProgressiveBlurView` / `VibrancyView` / `LiquidGlassView`.
+
 ## 1.1.0 (2026-10-13)
 
 ### Web support
